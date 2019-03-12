@@ -1,0 +1,449 @@
+<!doctype html>
+
+<html>
+   <head>
+       <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      
+   </head> 
+    
+   <style>
+      #startScreen {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100vw;
+           height: 100vh;
+           background-image: linear-gradient(hsla(46, 100%, 50%, 1), hsla(12, 100%, 44%, 1));
+           z-index: 0;
+           display: block;
+       }
+        #introMessage {
+           position: absolute;
+           top: 35%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           width: 70vw;
+           z-index: 10;
+           text-align: center;
+           font-family: 'Shadows Into Light', cursive;
+           border-radius: 3px;
+           background-color: hsla(12, 100%, 44%, 1);
+           box-shadow: 2px 4px 8px hsla(97, 7%, 12%, 1);
+           color: hsla(46, 100%, 50%, 1);
+           text-shadow: 2px 2px 4px hsla(327, 3%, 16%, 1);
+           border: 2px solid hsla(46, 100%, 50%, 1);
+           font-size: 3.5em;
+           padding: 10px; 
+       }
+       
+       #gameScreen {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           width: 100vw;
+           height: 100vh;
+           background-image: linear-gradient(hsla(26, 32%, 91%, 1), hsla(210, 74%, 70%, 1));
+           z-index: 4;
+           overflow: hidden; 
+           display: none;
+        }
+       
+       
+       #endScreen {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100vw;
+           height: 100vh;
+           background-image: linear-gradient(hsla(146, 3%, 76%, 1), hsla(146, 3%, 26%, 1));
+           z-index: 3;
+           display: none;
+       }
+       
+       .material-icons { 
+           position: absolute;
+           top: 0;
+           left: 85vw;
+           font-size: 36px; 
+           cursor: pointer;
+           user-select: none;
+           padding-top: 10px;
+           z-index: 999;
+       }
+       
+       #volcanoe1 {
+           position: absolute;
+           top: 15vh;
+           left: -20vw;
+           height: 25vh;
+           width: 15vw;
+           border-bottom: 40vw solid hsla(33, 16%, 54%, 1);
+           border-left: 30vw solid transparent;
+           border-right: 30vw solid transparent;
+           z-index: 6;
+       }
+       
+       #volcanoe2 {
+           position: absolute;
+           top: 13vh;
+           left: 50vw;
+           height: 25vh;
+           width: 15vw;
+           border-bottom: 40vw solid hsla(33, 43%, 72%, 1);
+           border-left: 30vw solid transparent;
+           border-right: 30vw solid transparent;
+           z-index: 6;
+       } 
+
+       #mainVolcanoe {
+           position: absolute;
+           top: 20vh;
+           left: 3vw;
+           height: 20vh;
+           width: 20vw;
+           border-bottom: 50vw solid hsla(32, 26%, 41%, 1);
+           border-left: 35vw solid transparent;
+           border-right: 35vw solid transparent;
+           z-index: 8;
+       }
+
+       #fog0 {  
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0; 
+          width: 0;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px; 
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeL 10s 0s infinite; 
+         
+       }
+
+       #fog1 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeR 10s 1s infinite;
+       }
+
+       #fog2 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px;
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+	      opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeL 10s 2s infinite; 
+       }
+
+       #fog3 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%;  
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeR 10s 3s infinite;
+       }
+
+       #fog4 {
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeL 10s 4s infinite; 
+       }
+
+       #fog5 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px; 
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeR 10s 5s infinite; 
+       }
+
+       #fog6 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeL 10s 6s infinite; 
+           
+       }
+
+       #fog7 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeR 10s 7s infinite; 
+       }
+
+       #fog8 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeL 10s 8s infinite; 
+       }
+
+       #fog9 { 
+          position: absolute;
+          top: 37%; 
+          left: 45%; 
+          height: 0px; 
+          width: 0px;
+	      border: 35px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 35px;
+          opacity: 0;
+	      transform: scale(0.4);
+          animation: smokeR 10s 9s infinite; 
+       }
+
+     @keyframes smokeL {
+         0%   { transform: scale(0.4) translate(0, 0) }
+         10%  { opacity: 1; transform: scale(0.4) translate(0, -5px); }
+         100% { opacity: 0; transform: scale(1.75) translate(-20px, -130px); }
+       }
+
+     @keyframes smokeR {
+         0%   { transform: scale(0.4) translate(0, 0) }
+         10%  { opacity: 1; transform: scale(0.4) translate(0, -5px); }
+         100% { opacity: 0; transform: scale(1.75) translate(20px, -130px); }
+       }
+       
+       #smoke1{
+          position: absolute;
+          top: 13vh; 
+          left: 45vw; 
+          height: 0; 
+          width: 0;
+	      border: 15px solid hsla(0, 0%, 29%, 1);
+	      border-radius: 15px;
+          opacity: .5;
+          z-index: 7;
+       }
+       
+       #lava {
+           position: absolute;
+           top: 100%;
+           left 48%;
+           height: 20vh;
+           width: 20vw;
+           background-image: linear-gradient(hsla(46, 100%, 50%, 1), hsla(12, 100%, 44%, 1));
+           box-shadow: 2px 3px 6px hsla(97, 7%, 12%, 1);
+           border-radius: 0px 0px 25px 25px;
+           cursor: pointer;
+           user-select: none;
+        
+           
+       }
+       
+       #endMessage {
+           position: absolute;
+           top: 35%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           width: 85vw;
+           z-index: 9;
+           text-align: center;
+           font-family: 'Shadows Into Light', cursive;
+           border-radius: 3px;
+           background-color: hsla(146, 3%, 76%, 1) ;
+           box-shadow: 4px 8px 10px hsla(327, 3%, 16%, 1);
+           color: hsla(146, 3%, 26%, 1);
+           text-shadow: 1px 1px 3px hsla(0, 100%, 34%, 1);
+           border: 2px solid hsla(146, 3%, 26%, 1);
+           font-size: 3.5em;
+           padding: 10px; 
+        }
+       
+       #startBTN {
+           position: absolute;
+           top: 70%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           width: 30vw;
+           z-index: 20;
+        }
+        
+       #exitBTN {
+           cursor: pointer;
+           user-select: none;
+       }
+       
+       #backBTN {
+           position: absolute;
+           top: 80%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           width: 30vw;
+           z-index: 11;
+        }
+       
+       .pagebutton {
+           border-radius: 15px;
+           background-color: hsla(46, 100%, 50%, 1);
+           box-shadow: 2px 4px 8px hsla(97, 7%, 12%, 1);
+           color: hsla(12, 100%, 44%, 1);
+           border: 2px solid hsla(12, 100%, 44%, 1);
+           text-align: center;
+           font-family: 'Shadows Into Light', cursive;
+           text-shadow: 1px 1px 2px hsla(327, 3%, 16%, 1);
+           font-size: 2em;
+           padding: 7px; 
+           cursor: pointer;
+           user-select: none;
+        }
+    
+       #link {
+           position: absolute;
+           top: 85%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           font-family: 'Shadows Into Light', cursive;
+           color: hsla(46, 100%, 50%, 1);
+           
+       }
+       a {
+           color: hsla(46, 100%, 50%, 1);
+       }
+       a:hover {
+           color: yellow;
+       }
+   </style>
+    
+   <body>
+       <div id="startScreen">
+           <div id="introMessage">Click on LAVA and watch the smoke get LARGER</div>
+           <div id="startBTN" class="pagebutton">START</div>
+           <div id="link"><a href="https://user-images.githubusercontent.com/46720362/54207152-0e846000-44b0-11e9-94ca-22811c552bf3.jpg">Workflow Link</a></div>
+       </div>
+       <div id="gameScreen">
+            <i id="exitBTN" class="material-icons">close</i>
+           <div id="volcanoe1"></div>
+           <div id="volcanoe2"></div>
+           <div id="mainVolcanoe">
+               <div id="lava"></div>
+           </div>
+              <div id="fog0"></div>
+              <div id="fog1"></div>
+              <div id="fog2"></div>
+              <div id="fog3"></div>
+              <div id="fog4"></div>
+              <div id="fog5"></div>
+              <div id="fog6"></div>
+              <div id="fog7"></div>
+              <div id="fog8"></div>
+              <div id="fog9"></div>
+              <div id="smoke1"></div>
+           </div>
+       <div id="endScreen">
+           <div id="endMessage">Thanks for visiting Mt.Superhot,
+           our lava has turned into igneous rock!</div>
+           <div id="backBTN" class="pagebutton">PLAY AGAIN</div>
+       </div>
+       
+       <script> 
+           var myStart;
+           myStart = document.querySelector("#startScreen");
+           
+           var myGame;
+           myGame = document.querySelector("#gameScreen");
+           
+           var myStartBTN;
+           myStartBTN = document.querySelector("#startBTN");
+           myStartBTN.innerHTML = "START";
+           
+           
+           myStartBTN.addEventListener("click", hideStartShowGame, false);
+           function hideStartShowGame() {
+               myStart.style.display = "none";
+               myGame.style.display = "block";
+           }
+          
+           var myEndingPage;
+           myEndingPage = document.querySelector("#endScreen");
+           
+           var myExit; 
+           myExit = document.querySelector("#exitBTN");
+           
+           myExit.addEventListener("click", hideGameShowExit, false);
+           function hideGameShowExit() {
+               myGame.style.display = "none";
+               myEndingPage.style.display = "block";
+           }
+           
+           var myBackBTN;
+           myBackBTN = document.querySelector("#backBTN");
+           myBackBTN.innerHTML = "PLAY AGAIN";
+           
+           myBackBTN.addEventListener("click", goOnePageBack, false);
+           
+           function goOnePageBack() {
+               myEndingPage.style.display = "none";
+               myGame.style.display = "block";
+           }
+        
+           var myLava;
+           myLava = document.querySelector("#lava");
+           
+           var mySmoke;
+           mySmoke = document.querySelector("#smoke1");
+           
+           myLava.addEventListener("click", growSmoke, false);
+           
+           var mySmokePosition = 0;
+           function growSmoke() {
+               mySmokePosition -= 1;
+               mySmoke.style.transform = "scale("+  mySmokePosition + ".02)";
+           }
+           
+         
+       
+       </script>
+       
+   </body>
+</html>
